@@ -7,6 +7,9 @@ Assignment: Module 05
 This program creates a producer and multiple task queues (RabbitMQ).
 It reads data from the smoker-temps.csv file for smart smokers.
 
+Items to update prior to final submission:
+- sleep time = 30 secs
+
 """
 ########################################################
 
@@ -132,11 +135,11 @@ def get_message_from_csv(input_file):
         if float_row1 > 0: publish_message_to_queue(host, smoker_queue, message_smoker)
         if float_row2 > 0: publish_message_to_queue(host, foodA_queue, message_foodA)
         if float_row3 > 0: publish_message_to_queue(host, foodB_queue, message_foodB)
-        else: print()
+        else: pass # print()
 
         # slowly read a row half minute (30 seconds)
         # can change this to 1 second for testing purposes - makes it go faster
-        time.sleep(30)        
+        time.sleep(1)        
 
 ########################################################
 
