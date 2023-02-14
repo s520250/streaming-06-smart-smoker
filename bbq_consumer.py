@@ -4,7 +4,7 @@ Date: February 9, 2023
 Class: Streaming Data 
 Assignment: Module 06 
 
-This program creates a consumer to go with the bbq_producer file.
+This program creates a consumer with 3 callbacks to go with the bbq_producer file.
 
 To exit program, press CTRL+C.
 
