@@ -8,13 +8,6 @@ This program creates a consumer with 3 callbacks to go with the bbq_producer fil
 
 To exit program, press CTRL+C.
 
-Questions:
-- need to add queue_delete code in main() function??
-- current issue: when I run the producer file on it's own, it counts the messages in RabbitMQ properly. But when I start running the consumer file,
-    it clears the queues back to a 0 count. Is this because of the auto_ack setting? If the consumer file is running, they seem to be acknowledged
-    and cleared from the queue immediately, whether or not the consumer file has noted that it "receieved" the message or not.
-- Update screenshot to include updated smoker alert phrasing.
-- update sleeptime in producer file to 30 secs
 """
 ########################################################
 
@@ -54,8 +47,9 @@ def smoker_callback(ch, method, properties, body):
     # receive & decode the binary message body to a string
     print(f" [x] Received {body.decode()} on 01-smoker")
     # simulate work
-    time.sleep(1)
-    # removed basic_ack
+    time.sleep(5)
+    # basic_ack - acknowledge the message was received and processed (now it can be deleted from the queue)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
 
     # create smoker deque to store x amount of recent messages
     # add new message to our smoker deque
@@ -92,8 +86,9 @@ def foodA_callback(ch, method, properties, body):
     # receive & decode the binary message body to a string
     print(f" [x] Received {body.decode()} on 02-food-A")
     # simulate work
-    time.sleep(1)
-    # removed basic_ack
+    time.sleep(5)
+    # basic_ack - acknowledge the message was received and processed (now it can be deleted from the queue)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
 
     # create food A deque to store x amount of recent messages
     # add new message to our food A deque
@@ -129,8 +124,9 @@ def foodB_callback(ch, method, properties, body):
     # receive & decode the binary message body to a string
     print(f" [x] Received {body.decode()} on 03-food-B")
     # simulate work
-    time.sleep(1)
-    # removed basic_ack
+    time.sleep(5)
+    # basic_ack - acknowledge the message was received and processed (now it can be deleted from the queue)
+    ch.basic_ack(delivery_tag=method.delivery_tag)
 
     # create food B deque to store x amount of recent messages
     # add new message to our food B deque
@@ -187,8 +183,6 @@ def main(host: str, qn: str):
         # need one channel per consumer
         channel = connection.channel()
 
-        # add queue_delete() code
-
         # use the channel to declare a durable queue (1 per queue)
         # a durable queue will survive a RabbitMQ server restart and help ensure messages are processed in order
         # messages will not be deleted until the consumer acknowledges
@@ -205,9 +199,9 @@ def main(host: str, qn: str):
         # configure the channel to listen on a specific queue,  
         # use the callback function named callback,
         # we use the auto_ack for this assignment
-        channel.basic_consume(queue=smoker_queue, on_message_callback=smoker_callback, auto_ack=True)
-        channel.basic_consume(queue=foodA_queue, on_message_callback=foodA_callback, auto_ack=True)
-        channel.basic_consume(queue=foodB_queue, on_message_callback=foodB_callback, auto_ack=True)
+        channel.basic_consume(queue=smoker_queue, on_message_callback=smoker_callback, auto_ack=False)
+        channel.basic_consume(queue=foodA_queue, on_message_callback=foodA_callback, auto_ack=False)
+        channel.basic_consume(queue=foodB_queue, on_message_callback=foodB_callback, auto_ack=False)
 
         # print a message to the console for the user
         print(" [*] Ready for work. To exit press CTRL+C")

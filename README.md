@@ -2,8 +2,8 @@
 Continuing the project from module 05. I copied all files from module 05 over to my module 06 repo. This way all the files needed to run this program are in one repo (this one - module 06). Adding a consumer with 3 callbacks.
 
 Author: Sammie Bever
-Date: February 9, 2023 
-Class: Streaming Data 
+Date: February 9, 2023
+Class: Streaming Data
 Assignment: Module 06
 
 This program uses 1 producer, 3 task queues (RabbitMQ), 1 consumer, and 3 callbacks. 
@@ -21,8 +21,10 @@ It reads data from the smoker-temps.csv file for smart smokers.
 
 ## Execute the Producer
 1. Open 2 Anaconda Prompt Terminals
-2. Run bbq_producer.py file (say y to monitor RabbitMQ queues)
-3. Run bbq_consumer.py file
+2. In both terminals, change directory to your github folder for this module (where these files are located)
+3. In both terminals, run code "conda activate base"
+4. Run bbq_producer.py file "python bbq_producer.py" (say y to monitor RabbitMQ queues)
+5. Run bbq_consumer.py file "python bbq_consumer.py"
 
 # Assignment Details
 ## Using a Barbeque Smoker
@@ -85,44 +87,26 @@ smoker_deque = deque(maxlen=5)  # limited to 5 items (the 5 most recent readings
 - round floats to 1 decimal place: https://stackoverflow.com/questions/3400965/getting-only-1-decimal-place
 - how to split a new line: https://www.freecodecamp.org/news/python-new-line-and-how-to-python-print-without-a-newline/
 
-# Producer - Screenshots
-Sometimes my screenshots don't come through to GitHub using the PNG file, so I also use a GitHub link to the photos in my repo
+# Producer - Module 5 Screenshots
 
-## Running code in Anaconda Prompt Terminal
-1 producer
-
-GitHub Link - 
-![Bever Example GitHub](https://github.com/s520250/streaming-05-smart-smoker/blob/main/Screenshot_BBQ_Producer_AnacondaTerminal.PNG)
-
-Using file name (PNG) -
-![Bever Example PNG](Screenshot_BBQ_Producer_AnacondaTerminal.PNG)
+## Running producer code in Anaconda Prompt Terminal
+1 Producer Running in Anaconda Terminal -
+![Bever Example PNG](Mod5_Screenshot_BBQ_Producer_AnacondaTerminal.PNG)
 
 ## RabbitMQ Server
-3 task queues
+3 task queues in RabbitMQ (only had producer file, no consumer yet)
+![RabbitMQ Server PNG](Mod5_Screenshot_BBQ_Producer_RabbitMQ.PNG)
 
-GitHub Link - 
-![RabbitMQ Server GitHub](https://github.com/s520250/streaming-05-smart-smoker/blob/main/Screenshot_BBQ_Producer_RabbitMQ.PNG)
-
-Using file name (PNG) -
-![RabbitMQ Server PNG](Screenshot_BBQ_Producer_RabbitMQ.PNG)
-
-# Consumer - Screenshots
-Sometimes my screenshots don't come through to GitHub using the PNG file, so I also use a GitHub link to the photos in my repo
-
+# Consumer - Module 6 Screenshots
 1 consumer, 3 callbacks
 
 ## Running Producer & Consumer code in Anaconda Prompt Terminal
-GitHub Link - 
-![Bever Producer & Consumer GitHub]()
+Smoker monitor & alert -
+![Smoker](Screenshot_Smoker_Monitor&Alert.PNG)
 
-Using file name (PNG) -
-![Bever Producer & Consumer PNG](Screenshot_BBQ_Producer&Consumer1.PNG)
+Food (A&B) monitor & stall alerts -
+![Food](Screenshot_Food_Monitor&StallAlerts.PNG)
 
 ## RabbitMQ Server
-Messages are being published and delivered at the same time. None are unacked since auto_ack is turned on.
-
-GitHub Link - 
-![Consumer RabbitMQ Server GitHub]()
-
-Using file name (PNG) -
-![Consumer RabbitMQ Server PNG](Screenshot_BBQ_Consumer_RabbitMQ.PNG)
+3 queues with producer and consumer running -
+![Consumer RabbitMQ](Screenshot_RabbitMQ_3Queues.PNG)
